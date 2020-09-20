@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">Retrofit2RxJavaAndroidSample</string>
+    <string name="text_title">Title</string>
+    <string name="text_content">Content</string>
+    <string name="text_author">Author</string>
+</resources>
