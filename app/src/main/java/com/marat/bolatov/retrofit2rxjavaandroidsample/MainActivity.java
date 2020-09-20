@@ -3,10 +3,8 @@ package com.marat.bolatov.retrofit2rxjavaandroidsample;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import io.reactivex.Scheduler;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
-import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 import retrofit2.Retrofit;
 
@@ -38,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
         compositeDisposable.clear();
     }
 
-    private void initApi(){
+    private void initApi() {
         Retrofit retrofit = RetrofitClient.getRetrofitInstance();
         userApi = retrofit.create(UserApi.class);
         recyclerView = (RecyclerView) findViewById(R.id.recycler_user);
@@ -49,14 +47,9 @@ public class MainActivity extends AppCompatActivity {
 
     private void fetchData() {
         compositeDisposable.add(userApi.getUser()
-        .subscribeOn(Schedulers.io())
-        .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Consumer<List<UserPojo>>() {
-                    @Override
-                    public void accept(List<UserPojo> userPojos) throws Exception {
-                        displayData(userPojos);
-                    }
-                }));
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(this::displayData));
     }
 
     private void displayData(List<UserPojo> userPojos) {
